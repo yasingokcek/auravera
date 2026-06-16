@@ -10,12 +10,12 @@ type Mode =
   | { kind: "fixed"; lo: number; hi: number };
 
 const TREATMENTS: { slug: string; icon: string; labels: Record<Lang, string>; mode: Mode }[] = [
-  { slug: "sac_ekimi", icon: "🌱", labels: { tr: "Saç Ekimi", en: "Hair Transplant", de: "Haartransplantation", fr: "Greffe de cheveux" }, mode: { kind: "graft", min: 1000, max: 5000, perMin: 0.5, perMax: 0.9 } },
-  { slug: "dis", icon: "🦷", labels: { tr: "Diş İmplantı / Veneer", en: "Dental Implant / Veneer", de: "Zahnimplantat / Veneer", fr: "Implant / Facette" }, mode: { kind: "qty", min: 1, max: 20, perMin: 350, perMax: 650 } },
-  { slug: "estetik", icon: "✨", labels: { tr: "Estetik Cerrahi", en: "Aesthetic Surgery", de: "Ästhetische Chirurgie", fr: "Chirurgie esthétique" }, mode: { kind: "fixed", lo: 2200, hi: 5500 } },
-  { slug: "obezite", icon: "⚖️", labels: { tr: "Obezite / Tüp Mide", en: "Bariatric / Gastric Sleeve", de: "Adipositas / Magenverkleinerung", fr: "Bariatrique / Sleeve" }, mode: { kind: "fixed", lo: 3500, hi: 5000 } },
-  { slug: "tup_bebek", icon: "👶", labels: { tr: "Tüp Bebek / IVF", en: "IVF", de: "IVF", fr: "FIV" }, mode: { kind: "fixed", lo: 3000, hi: 5000 } },
-  { slug: "goz", icon: "👁️", labels: { tr: "Göz / LASIK (2 göz)", en: "Eye / LASIK (both)", de: "Augen / LASIK (beide)", fr: "Yeux / LASIK (2 yeux)" }, mode: { kind: "fixed", lo: 1200, hi: 2000 } },
+  { slug: "sac_ekimi", icon: "🌱", labels: { tr: "Saç Ekimi", en: "Hair Transplant", de: "Haartransplantation", fr: "Greffe de cheveux", ar: "زراعة الشعر" }, mode: { kind: "graft", min: 1000, max: 5000, perMin: 0.5, perMax: 0.9 } },
+  { slug: "dis", icon: "🦷", labels: { tr: "Diş İmplantı / Veneer", en: "Dental Implant / Veneer", de: "Zahnimplantat / Veneer", fr: "Implant / Facette", ar: "زرعة / عدسات أسنان" }, mode: { kind: "qty", min: 1, max: 20, perMin: 350, perMax: 650 } },
+  { slug: "estetik", icon: "✨", labels: { tr: "Estetik Cerrahi", en: "Aesthetic Surgery", de: "Ästhetische Chirurgie", fr: "Chirurgie esthétique", ar: "جراحة تجميلية" }, mode: { kind: "fixed", lo: 2200, hi: 5500 } },
+  { slug: "obezite", icon: "⚖️", labels: { tr: "Obezite / Tüp Mide", en: "Bariatric / Gastric Sleeve", de: "Adipositas / Magenverkleinerung", fr: "Bariatrique / Sleeve", ar: "تكميم المعدة" }, mode: { kind: "fixed", lo: 3500, hi: 5000 } },
+  { slug: "tup_bebek", icon: "👶", labels: { tr: "Tüp Bebek / IVF", en: "IVF", de: "IVF", fr: "FIV", ar: "أطفال الأنابيب" }, mode: { kind: "fixed", lo: 3000, hi: 5000 } },
+  { slug: "goz", icon: "👁️", labels: { tr: "Göz / LASIK (2 göz)", en: "Eye / LASIK (both)", de: "Augen / LASIK (beide)", fr: "Yeux / LASIK (2 yeux)", ar: "العيون / الليزك" }, mode: { kind: "fixed", lo: 1200, hi: 2000 } },
 ];
 
 const fmt = (n: number) => "$" + (Math.round(n / 50) * 50).toLocaleString("en-US");

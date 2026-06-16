@@ -6,13 +6,13 @@ import { COUNTRIES, CITIES, LANGUAGES } from "@/lib/geo";
 import type { Lang } from "@/lib/i18n";
 
 const TREATMENTS: { slug: string; icon: string; labels: Record<Lang, string> }[] = [
-  { slug: "sac_ekimi", icon: "🌱", labels: { tr: "Saç Ekimi", en: "Hair Transplant", de: "Haartransplantation", fr: "Greffe de cheveux" } },
-  { slug: "dis", icon: "🦷", labels: { tr: "Diş & Gülüş", en: "Dental & Smile", de: "Zähne & Lächeln", fr: "Dentaire & Sourire" } },
-  { slug: "estetik", icon: "✨", labels: { tr: "Estetik Cerrahi", en: "Aesthetic Surgery", de: "Ästhetische Chirurgie", fr: "Chirurgie esthétique" } },
-  { slug: "obezite", icon: "⚖️", labels: { tr: "Obezite", en: "Bariatric", de: "Adipositas", fr: "Bariatrique" } },
-  { slug: "tup_bebek", icon: "👶", labels: { tr: "Tüp Bebek / IVF", en: "IVF", de: "IVF", fr: "FIV" } },
-  { slug: "goz", icon: "👁️", labels: { tr: "Göz / LASIK", en: "Eye / LASIK", de: "Augen / LASIK", fr: "Yeux / LASIK" } },
-  { slug: "diger", icon: "➕", labels: { tr: "Diğer", en: "Other", de: "Andere", fr: "Autre" } },
+  { slug: "sac_ekimi", icon: "🌱", labels: { tr: "Saç Ekimi", en: "Hair Transplant", de: "Haartransplantation", fr: "Greffe de cheveux", ar: "زراعة الشعر" } },
+  { slug: "dis", icon: "🦷", labels: { tr: "Diş & Gülüş", en: "Dental & Smile", de: "Zähne & Lächeln", fr: "Dentaire & Sourire", ar: "الأسنان والابتسامة" } },
+  { slug: "estetik", icon: "✨", labels: { tr: "Estetik Cerrahi", en: "Aesthetic Surgery", de: "Ästhetische Chirurgie", fr: "Chirurgie esthétique", ar: "جراحة تجميلية" } },
+  { slug: "obezite", icon: "⚖️", labels: { tr: "Obezite", en: "Bariatric", de: "Adipositas", fr: "Bariatrique", ar: "السمنة" } },
+  { slug: "tup_bebek", icon: "👶", labels: { tr: "Tüp Bebek / IVF", en: "IVF", de: "IVF", fr: "FIV", ar: "أطفال الأنابيب" } },
+  { slug: "goz", icon: "👁️", labels: { tr: "Göz / LASIK", en: "Eye / LASIK", de: "Augen / LASIK", fr: "Yeux / LASIK", ar: "العيون / الليزك" } },
+  { slug: "diger", icon: "➕", labels: { tr: "Diğer", en: "Other", de: "Andere", fr: "Autre", ar: "أخرى" } },
 ];
 const BUDGETS = [
   { v: "lt_1000", k: "budget.lt" }, { v: "1000_3000", k: "budget.1" },
