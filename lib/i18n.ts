@@ -108,6 +108,13 @@ const tr: Dict = {
   "faq.q3": "Verilerim güvende mi?", "faq.a3": "Bilgileriniz yalnızca onayladığınız kliniklerle paylaşılır (KVKK/GDPR).",
   "faq.q4": "Ne kadar sürede dönüş alırım?", "faq.a4": "Ortalama 5 dakika içinde sağlık danışmanımız sizinle iletişime geçer.",
   "cta.title": "Sağlığınız için ilk adımı bugün atın", "cta.sub": "Ücretsiz ön değerlendirme ve şeffaf teklif sizi bekliyor.", "cta.btn": "Ücretsiz Teklif Al",
+  "whyTr.title": "Neden Türkiye?", "whyTr.sub": "Dünyanın sağlık turizmi merkezi: kalite, fiyat ve deneyim bir arada.",
+  "whyTr.1t": "%50-70 Tasarruf", "whyTr.1d": "Avrupa ve ABD'ye kıyasla aynı kalitede tedavi, çok daha uygun fiyata.",
+  "whyTr.2t": "Uzman Doktorlar", "whyTr.2d": "Yüksek vaka deneyimi olan, uluslararası eğitimli cerrahlar.",
+  "whyTr.3t": "Bekleme Yok", "whyTr.3d": "Aylarca sıra beklemeden günler içinde tedaviye başlayın.",
+  "whyTr.4t": "Tatil + Tedavi", "whyTr.4d": "Eşsiz İstanbul ve Antalya deneyimiyle iyileşin.",
+  "cl.nav": "Klinikler", "cl.title": "Anlaşmalı Klinikler", "cl.sub": "Akredite, doğrulanmış kliniklerimizi karşılaştırın.",
+  "cl.rating": "puan", "cl.specialties": "Uzmanlık", "cl.cta": "Bu klinikten teklif al", "cl.verified": "✓ Doğrulanmış", "cl.reviews": "yorum",
 };
 
 const en: Dict = {
@@ -208,6 +215,13 @@ const en: Dict = {
   "faq.q3": "Is my data safe?", "faq.a3": "Your data is shared only with clinics you approve (GDPR).",
   "faq.q4": "How fast is the response?", "faq.a4": "Our health advisor contacts you within 5 minutes on average.",
   "cta.title": "Take the first step for your health today", "cta.sub": "A free assessment and transparent quote are waiting for you.", "cta.btn": "Get Free Quote",
+  "whyTr.title": "Why Turkey?", "whyTr.sub": "The world's health tourism hub: quality, price and experience combined.",
+  "whyTr.1t": "50-70% Savings", "whyTr.1d": "Same-quality treatment at a fraction of EU/US prices.",
+  "whyTr.2t": "Expert Doctors", "whyTr.2d": "Internationally trained surgeons with high case volume.",
+  "whyTr.3t": "No Waiting", "whyTr.3d": "Start treatment in days, not months on a waiting list.",
+  "whyTr.4t": "Holiday + Care", "whyTr.4d": "Recover with the unique experience of Istanbul and Antalya.",
+  "cl.nav": "Clinics", "cl.title": "Partner Clinics", "cl.sub": "Compare our accredited, verified clinics.",
+  "cl.rating": "rating", "cl.specialties": "Specialties", "cl.cta": "Get a quote from this clinic", "cl.verified": "✓ Verified", "cl.reviews": "reviews",
 };
 
 const de: Dict = {
@@ -308,6 +322,13 @@ const de: Dict = {
   "faq.q3": "Sind meine Daten sicher?", "faq.a3": "Ihre Daten werden nur mit von Ihnen genehmigten Kliniken geteilt (DSGVO).",
   "faq.q4": "Wie schnell ist die Antwort?", "faq.a4": "Unser Berater meldet sich im Durchschnitt innerhalb von 5 Minuten.",
   "cta.title": "Machen Sie heute den ersten Schritt für Ihre Gesundheit", "cta.sub": "Eine kostenlose Bewertung und ein transparentes Angebot warten auf Sie.", "cta.btn": "Kostenloses Angebot",
+  "whyTr.title": "Warum Türkei?", "whyTr.sub": "Das Zentrum des Gesundheitstourismus: Qualität, Preis und Erlebnis vereint.",
+  "whyTr.1t": "50-70% Ersparnis", "whyTr.1d": "Gleiche Qualität zu einem Bruchteil der EU/US-Preise.",
+  "whyTr.2t": "Fachärzte", "whyTr.2d": "International ausgebildete Chirurgen mit hoher Fallzahl.",
+  "whyTr.3t": "Keine Wartezeit", "whyTr.3d": "Behandlung in Tagen statt Monaten Wartezeit.",
+  "whyTr.4t": "Urlaub + Behandlung", "whyTr.4d": "Erholen Sie sich mit dem Erlebnis von Istanbul und Antalya.",
+  "cl.nav": "Kliniken", "cl.title": "Partnerkliniken", "cl.sub": "Vergleichen Sie unsere akkreditierten, geprüften Kliniken.",
+  "cl.rating": "Bewertung", "cl.specialties": "Fachgebiete", "cl.cta": "Angebot von dieser Klinik", "cl.verified": "✓ Geprüft", "cl.reviews": "Bewertungen",
 };
 
 const fr: Dict = {
@@ -408,6 +429,13 @@ const fr: Dict = {
   "faq.q3": "Mes données sont-elles sécurisées ?", "faq.a3": "Vos données ne sont partagées qu'avec les cliniques que vous approuvez (RGPD).",
   "faq.q4": "Quel est le délai de réponse ?", "faq.a4": "Notre conseiller vous contacte en moyenne sous 5 minutes.",
   "cta.title": "Faites le premier pas pour votre santé aujourd'hui", "cta.sub": "Une évaluation gratuite et un devis transparent vous attendent.", "cta.btn": "Devis gratuit",
+  "whyTr.title": "Pourquoi la Turquie ?", "whyTr.sub": "Le centre mondial du tourisme médical : qualité, prix et expérience réunis.",
+  "whyTr.1t": "50-70% d'économies", "whyTr.1d": "Même qualité à une fraction des prix UE/US.",
+  "whyTr.2t": "Médecins experts", "whyTr.2d": "Chirurgiens formés à l'international avec un grand volume de cas.",
+  "whyTr.3t": "Aucune attente", "whyTr.3d": "Commencez en quelques jours, sans liste d'attente.",
+  "whyTr.4t": "Vacances + soins", "whyTr.4d": "Récupérez avec l'expérience d'Istanbul et Antalya.",
+  "cl.nav": "Cliniques", "cl.title": "Cliniques partenaires", "cl.sub": "Comparez nos cliniques accréditées et vérifiées.",
+  "cl.rating": "note", "cl.specialties": "Spécialités", "cl.cta": "Obtenir un devis de cette clinique", "cl.verified": "✓ Vérifié", "cl.reviews": "avis",
 };
 
 const ar: Dict = {
@@ -508,6 +536,13 @@ const ar: Dict = {
   "faq.q3": "هل بياناتي آمنة؟", "faq.a3": "تُشارَك بياناتك فقط مع العيادات التي توافق عليها (GDPR).",
   "faq.q4": "ما سرعة الرد؟", "faq.a4": "يتواصل معك مستشارنا الصحي خلال 5 دقائق في المتوسط.",
   "cta.title": "اتخذ الخطوة الأولى لصحتك اليوم", "cta.sub": "تقييم مجاني وعرض شفاف بانتظارك.", "cta.btn": "احصل على عرض مجاني",
+  "whyTr.title": "لماذا تركيا؟", "whyTr.sub": "مركز السياحة العلاجية في العالم: الجودة والسعر والتجربة معاً.",
+  "whyTr.1t": "توفير 50-70%", "whyTr.1d": "نفس الجودة بجزء من أسعار أوروبا وأمريكا.",
+  "whyTr.2t": "أطباء خبراء", "whyTr.2d": "جراحون مدرّبون دولياً بخبرة عالية.",
+  "whyTr.3t": "بلا انتظار", "whyTr.3d": "ابدأ العلاج خلال أيام وليس أشهر انتظار.",
+  "whyTr.4t": "سياحة + علاج", "whyTr.4d": "تعافَ مع تجربة إسطنبول وأنطاليا الفريدة.",
+  "cl.nav": "العيادات", "cl.title": "العيادات الشريكة", "cl.sub": "قارن بين عياداتنا المعتمدة والموثّقة.",
+  "cl.rating": "تقييم", "cl.specialties": "التخصصات", "cl.cta": "احصل على عرض من هذه العيادة", "cl.verified": "✓ موثّقة", "cl.reviews": "مراجعة",
 };
 
 export const DICT: Record<Lang, Dict> = { tr, en, de, fr, ar };

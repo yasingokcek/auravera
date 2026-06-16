@@ -5,6 +5,9 @@ import LeadFunnel from "@/components/LeadFunnel";
 import CostCalculator from "@/components/CostCalculator";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 import FaqAccordion from "@/components/FaqAccordion";
+import Counter from "@/components/Counter";
+import TreatmentIcon from "@/components/TreatmentIcon";
+import WhatsAppButton from "@/components/WhatsAppButton";
 import { useLang } from "@/components/LangProvider";
 
 const TX = [
@@ -28,8 +31,8 @@ export default function HomeContent() {
           <nav className="nav-links">
             <a href="#tedaviler">{t("tx.title")}</a>
             <a href="#hesapla">{t("nav.cost")}</a>
+            <a href="/clinics">{t("cl.nav")}</a>
             <a href="#nasil">{t("nav.how")}</a>
-            <a href="#neden">{t("nav.why")}</a>
             <a href="#klinikler">{t("nav.clinics")}</a>
             <a className="btn-ghost" href="/portal/login">
               {t("nav.login")}
@@ -61,10 +64,10 @@ export default function HomeContent() {
           <div style={{ display: "grid", gap: 20 }}>
             <CostCalculator />
             <div className="stat-row">
-              <div className="stat"><div className="num">40+</div><div className="label">{t("stat.countries")}</div></div>
-              <div className="stat"><div className="num">6</div><div className="label">{t("stat.areas")}</div></div>
-              <div className="stat"><div className="num">&lt;5dk</div><div className="label">{t("stat.response")}</div></div>
-              <div className="stat"><div className="num">%100</div><div className="label">{t("stat.transparent")}</div></div>
+              <div className="stat"><div className="num"><Counter to={40} suffix="+" /></div><div className="label">{t("stat.countries")}</div></div>
+              <div className="stat"><div className="num"><Counter to={6} /></div><div className="label">{t("stat.areas")}</div></div>
+              <div className="stat"><div className="num"><Counter to={5} prefix="<" /></div><div className="label">{t("stat.response")}</div></div>
+              <div className="stat"><div className="num"><Counter to={100} suffix="%" /></div><div className="label">{t("stat.transparent")}</div></div>
             </div>
           </div>
           <div id="basvuru">
@@ -80,7 +83,7 @@ export default function HomeContent() {
           <div className="grid-3">
             {TX.map((x) => (
               <a className="tx-card" key={x.slug} href="#basvuru">
-                <div className="tx-icon">{x.icon}</div>
+                <div className="tx-icon"><TreatmentIcon slug={x.slug} size={30} /></div>
                 <h3>{x.labels[lang]}</h3>
                 <p>{t(`tx.${x.slug}.d`)}</p>
                 <div className="go">{t("funnel.submit")} →</div>
@@ -143,6 +146,22 @@ export default function HomeContent() {
         </div>
       </section>
 
+      <section className="section soft" id="neden-turkiye">
+        <div className="container">
+          <h2>{t("whyTr.title")}</h2>
+          <p className="muted">{t("whyTr.sub")}</p>
+          <div className="grid-3">
+            {[1, 2, 3, 4].map((i) => (
+              <div className="feature" key={i}>
+                <div className="icon">{["💸", "👨‍⚕️", "⏱️", "🏖️"][i - 1]}</div>
+                <h3>{t(`whyTr.${i}t`)}</h3>
+                <p>{t(`whyTr.${i}d`)}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="section">
         <div className="container">
           <h2>{t("rev.title")}</h2>
@@ -188,6 +207,8 @@ export default function HomeContent() {
           </p>
         </div>
       </footer>
+
+      <WhatsAppButton />
     </>
   );
 }
