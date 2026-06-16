@@ -5,7 +5,7 @@ import LanguageSwitcher from "@/components/LanguageSwitcher";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import TreatmentIcon from "@/components/TreatmentIcon";
 import { useLang } from "@/components/LangProvider";
-import { IMG } from "@/lib/images";
+import { DOCTORS } from "@/lib/images";
 import type { Lang } from "@/lib/i18n";
 
 const SPEC: Record<string, Record<Lang, string>> = {
@@ -59,22 +59,22 @@ export default function ClinicsContent() {
         <div className="container">
           <div className="grid-3">
             {CLINICS.map((c, i) => (
-              <div className="card" key={c.name} style={{ padding: 24 }}>
-                <div
-                  className="clinic-media"
-                  style={{
-                    backgroundImage: `url(${IMG.clinic[i % IMG.clinic.length]}), linear-gradient(135deg, var(--emerald-soft), var(--blue-soft))`,
-                  }}
-                />
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
-                  <h3 style={{ fontSize: "1.15rem" }}>{c.name}</h3>
-                  <span className="pill" style={{ background: "var(--emerald-soft)", color: "var(--emerald-dark)" }}>
-                    {t("cl.verified")}
-                  </span>
+              <div className="card" key={c.name} style={{ padding: 0, overflow: "hidden" }}>
+                <div className="clinic-banner">
+                  <TreatmentIcon slug={c.specs[0]} size={30} />
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img className="clinic-doc" src={DOCTORS[i % DOCTORS.length]} alt="" loading="lazy" />
                 </div>
-                <div style={{ color: "var(--muted)", fontSize: "0.9rem", marginBottom: 10 }}>
-                  📍 {c.city} · {c.accr}
-                </div>
+                <div style={{ padding: "30px 22px 22px" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
+                    <h3 style={{ fontSize: "1.12rem" }}>{c.name}</h3>
+                    <span className="pill" style={{ background: "var(--emerald-soft)", color: "var(--emerald-dark)" }}>
+                      {t("cl.verified")}
+                    </span>
+                  </div>
+                  <div style={{ color: "var(--muted)", fontSize: "0.9rem", marginBottom: 10 }}>
+                    📍 {c.city} · {c.accr}
+                  </div>
                 <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
                   <span style={{ color: "#f5b301", letterSpacing: 1 }}>★★★★★</span>
                   <strong>{c.rating.toFixed(1)}</strong>
@@ -93,9 +93,10 @@ export default function ClinicsContent() {
                     </span>
                   ))}
                 </div>
-                <a className="btn" href="/#basvuru" style={{ display: "block", textAlign: "center" }}>
-                  {t("cl.cta")}
-                </a>
+                  <a className="btn" href="/#basvuru" style={{ display: "block", textAlign: "center" }}>
+                    {t("cl.cta")}
+                  </a>
+                </div>
               </div>
             ))}
           </div>

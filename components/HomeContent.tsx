@@ -10,13 +10,9 @@ import TreatmentIcon from "@/components/TreatmentIcon";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import SimulationTool from "@/components/SimulationTool";
 import BmiCalculator from "@/components/BmiCalculator";
+import IstanbulSkyline from "@/components/IstanbulSkyline";
 import { useLang } from "@/components/LangProvider";
-import { IMG, avatar } from "@/lib/images";
-
-const bg = (url: string) => ({
-  backgroundImage: `url(${url}), linear-gradient(135deg, var(--emerald-soft), var(--blue-soft))`,
-});
-const REV_AVATARS = [avatar("men", 32), avatar("women", 44), avatar("women", 68)];
+import { REV_AVATARS, DOCTORS } from "@/lib/images";
 
 const TX = [
   { slug: "sac_ekimi", icon: "🌱", labels: { tr: "Saç Ekimi", en: "Hair Transplant", de: "Haartransplantation", fr: "Greffe de cheveux", ar: "زراعة الشعر" } },
@@ -70,28 +66,50 @@ export default function HomeContent() {
               <span className="badge">{t("hero.b4")}</span>
             </div>
           </div>
-          <div className="hero-media" style={bg(IMG.hero)}>
-            <div className="float-card">
-              <div className="fc-rate">4.9</div>
+          <div className="match-panel">
+            <div className="mp-title">✦ {t("tx.title")}</div>
+            <div className="match-card">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img className="mc-av" src={DOCTORS[0]} alt="" loading="lazy" />
               <div>
-                <div className="fc-stars">★★★★★</div>
-                <div className="fc-label">{t("rev.sub")}</div>
+                <div className="mc-name">Nova Hair Clinic</div>
+                <div className="mc-meta">İstanbul · JCI</div>
+                <div className="mc-rate">★ 4.9</div>
               </div>
+              <span className="mc-badge">{t("cl.verified")}</span>
+            </div>
+            <div className="match-card">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img className="mc-av" src={DOCTORS[1]} alt="" loading="lazy" />
+              <div>
+                <div className="mc-name">Pearl Smile Dental</div>
+                <div className="mc-meta">İstanbul · ISO 9001</div>
+                <div className="mc-rate">★ 4.9</div>
+              </div>
+              <span className="mc-badge">{t("cl.verified")}</span>
+            </div>
+            <div className="chip-row">
+              <span className="chip-g">💬 {t("hero.b2")}</span>
+              <span className="chip-g">$1,800 – $2,500</span>
             </div>
           </div>
         </div>
       </section>
 
+      <div className="trustbar">
+        <div className="inner">
+          <span className="trust-logo">🛡️ JCI <span>Accredited</span></span>
+          <span className="trust-logo">ISO 9001</span>
+          <span className="trust-logo">🏥 T.C. <span>Sağlık Bakanlığı</span></span>
+          <span className="trust-logo">ESHRE</span>
+          <span className="trust-logo">🔒 GDPR / KVKK</span>
+        </div>
+      </div>
+
       <div className="container">
         <div className="split" id="hesapla">
           <div style={{ display: "grid", gap: 20 }}>
             <CostCalculator />
-            <div className="stat-row">
-              <div className="stat"><div className="num"><Counter to={40} suffix="+" /></div><div className="label">{t("stat.countries")}</div></div>
-              <div className="stat"><div className="num"><Counter to={6} /></div><div className="label">{t("stat.areas")}</div></div>
-              <div className="stat"><div className="num"><Counter to={5} prefix="<" /></div><div className="label">{t("stat.response")}</div></div>
-              <div className="stat"><div className="num"><Counter to={100} suffix="%" /></div><div className="label">{t("stat.transparent")}</div></div>
-            </div>
           </div>
           <div id="basvuru">
             <LeadFunnel />
@@ -99,18 +117,27 @@ export default function HomeContent() {
         </div>
       </div>
 
+      <section className="stats-dark">
+        <div className="container">
+          <div className="stat-row">
+            <div className="stat"><div className="num"><Counter to={40} suffix="+" /></div><div className="label">{t("stat.countries")}</div></div>
+            <div className="stat"><div className="num"><Counter to={6} /></div><div className="label">{t("stat.areas")}</div></div>
+            <div className="stat"><div className="num"><Counter to={5} prefix="<" /></div><div className="label">{t("stat.response")}</div></div>
+            <div className="stat"><div className="num"><Counter to={100} suffix="%" /></div><div className="label">{t("stat.transparent")}</div></div>
+          </div>
+        </div>
+      </section>
+
       <section className="section" id="tedaviler">
         <div className="container">
+          <span className="section-eyebrow">AuraVera</span>
           <h2>{t("tx.title")}</h2>
           <p className="muted">{t("tx.sub")}</p>
           <div className="grid-3">
             {TX.map((x) => (
               <a className="tx-card" key={x.slug} href="#basvuru">
-                <div className="tx-media" style={bg(IMG.tx[x.slug])} />
-                <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6 }}>
-                  <TreatmentIcon slug={x.slug} size={24} />
-                  <h3 style={{ margin: 0 }}>{x.labels[lang]}</h3>
-                </div>
+                <div className="tx-media"><TreatmentIcon slug={x.slug} size={28} /></div>
+                <h3 style={{ margin: "0 0 6px" }}>{x.labels[lang]}</h3>
                 <p>{t(`tx.${x.slug}.d`)}</p>
                 <div className="go">{t("funnel.submit")} →</div>
               </a>
@@ -186,7 +213,7 @@ export default function HomeContent() {
       <section className="section soft" id="neden-turkiye">
         <div className="container">
           <div className="photo-split">
-            <div className="ps-img" style={bg(IMG.istanbul)} />
+            <div className="ps-img"><IstanbulSkyline /></div>
             <div>
               <h2>{t("whyTr.title")}</h2>
               <p className="muted" style={{ marginBottom: 22 }}>{t("whyTr.sub")}</p>
@@ -237,14 +264,7 @@ export default function HomeContent() {
 
       <section className="section">
         <div className="container">
-          <div
-            className="cta-band"
-            style={{
-              backgroundImage: `linear-gradient(120deg, rgba(15,179,154,0.92), rgba(30,107,255,0.92)), url(${IMG.cta})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-          >
+          <div className="cta-band">
             <h2>{t("cta.title")}</h2>
             <p>{t("cta.sub")}</p>
             <a className="btn" href="#basvuru">{t("cta.btn")}</a>
@@ -254,12 +274,27 @@ export default function HomeContent() {
 
       <footer className="site-footer">
         <div className="container">
-          <Logo size={28} />
-          <p style={{ marginTop: 12, maxWidth: 560 }}>{t("footer.desc")}</p>
-          <p style={{ marginTop: 10 }}>
-            <a href="/privacy">{t("footer.privacy")}</a> ·{" "}
-            <a href="/portal/login">{t("footer.login")}</a> · © {year} AuraVera
-          </p>
+          <div className="footer-cols">
+            <div>
+              <Logo size={30} />
+              <p style={{ marginTop: 12, maxWidth: 420 }}>{t("footer.desc")}</p>
+            </div>
+            <div>
+              <h4>{t("tx.title")}</h4>
+              {TX.map((x) => (
+                <a key={x.slug} href="#basvuru">{x.labels[lang]}</a>
+              ))}
+            </div>
+            <div>
+              <h4>AuraVera</h4>
+              <a href="/clinics">{t("cl.nav")}</a>
+              <a href="#neden">{t("nav.why")}</a>
+              <a href="#klinikler">{t("nav.clinics")}</a>
+              <a href="/portal/login">{t("footer.login")}</a>
+              <a href="/privacy">{t("footer.privacy")}</a>
+            </div>
+          </div>
+          <div className="footer-bottom">© {year} AuraVera · True care. Radiant results.</div>
         </div>
       </footer>
 

@@ -794,3 +794,173 @@ table.tbl td {
   background: #f1f5f9;
   color: #64748b;
 }
+
+/* ============================================================
+   PREMIUM LAYER — kurumsal, ciddi görünüm
+   ============================================================ */
+body {
+  background:
+    radial-gradient(1200px 600px at 100% -200px, rgba(15, 179, 154, 0.05), transparent),
+    var(--bg);
+}
+.hero {
+  padding: 78px 0 48px;
+}
+.hero h1 {
+  font-size: 3.35rem;
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+}
+@media (max-width: 860px) {
+  .hero h1 { font-size: 2.2rem; }
+}
+
+/* Hero "klinik eşleştirme" önizleme paneli */
+.match-panel {
+  position: relative;
+  border-radius: 26px;
+  padding: 26px;
+  background: linear-gradient(160deg, #0a4a4a 0%, #0e6e6e 55%, #1857d6 140%);
+  box-shadow: 0 30px 70px rgba(10, 74, 74, 0.32);
+  overflow: hidden;
+  min-height: 380px;
+}
+.match-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(400px 200px at 90% 0%, rgba(255,255,255,0.16), transparent),
+    radial-gradient(360px 220px at 0% 100%, rgba(30,107,255,0.3), transparent);
+}
+.match-panel .mp-title {
+  position: relative;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.match-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.97);
+  border-radius: 18px;
+  padding: 16px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.match-card:last-child { margin-bottom: 0; }
+.match-card .mc-av {
+  width: 52px; height: 52px; border-radius: 14px; object-fit: cover; flex: 0 0 auto;
+}
+.match-card .mc-name { font-weight: 700; font-size: 0.98rem; color: var(--ink); }
+.match-card .mc-meta { font-size: 0.8rem; color: var(--muted); margin-top: 1px; }
+.match-card .mc-rate { color: #f5b301; font-size: 0.82rem; font-weight: 700; margin-top: 3px; }
+.mc-badge {
+  margin-inline-start: auto;
+  background: var(--emerald-soft); color: var(--emerald-dark);
+  font-size: 0.72rem; font-weight: 700; padding: 4px 9px; border-radius: 999px; white-space: nowrap;
+}
+.chip-row { position: relative; display: flex; gap: 10px; flex-wrap: wrap; margin-top: 14px; }
+.chip-g {
+  background: rgba(255,255,255,0.16); color: #fff; border: 1px solid rgba(255,255,255,0.22);
+  padding: 8px 13px; border-radius: 12px; font-size: 0.82rem; font-weight: 600; backdrop-filter: blur(6px);
+}
+
+/* Akreditasyon güven bandı */
+.trustbar {
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: #fff;
+}
+.trustbar .inner {
+  max-width: 1160px; margin: 0 auto; padding: 18px 22px;
+  display: flex; align-items: center; justify-content: center; gap: 14px 34px; flex-wrap: wrap;
+}
+.trust-logo {
+  font-weight: 800; letter-spacing: -0.02em; color: #94a3b8; font-size: 1.05rem;
+  display: inline-flex; align-items: center; gap: 7px;
+}
+.trust-logo span { font-size: 0.74rem; font-weight: 600; color: #b6c0cc; }
+
+/* Koyu istatistik / güven bandı */
+.stats-dark {
+  background: linear-gradient(120deg, #0a4a4a, #0e6e6e);
+  color: #fff;
+  padding: 46px 0;
+}
+.stats-dark .stat {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.14);
+}
+.stats-dark .stat .num {
+  -webkit-text-fill-color: #fff;
+  color: #fff;
+}
+.stats-dark .stat .label { color: rgba(255,255,255,0.75); }
+
+/* Tedavi kartı medya alanı → tasarlanmış (fotoğraf yok) */
+.tx-media {
+  height: 120px;
+  display: grid;
+  place-items: center;
+  position: relative;
+  background:
+    radial-gradient(120px 80px at 80% 20%, rgba(255,255,255,0.5), transparent),
+    linear-gradient(135deg, var(--emerald-soft), var(--blue-soft));
+  border: 1px solid var(--border);
+}
+.tx-media svg { transform: scale(1.9); }
+.tx-card { padding: 20px; }
+.tx-card:hover .tx-media svg { transform: scale(2.05); transition: 0.25s; }
+
+/* Section eyebrow başlık */
+.section-eyebrow {
+  display: inline-block; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--emerald-dark); margin-bottom: 10px;
+}
+
+/* Kurumsal footer */
+.footer-cols {
+  display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 32px; margin-bottom: 26px;
+}
+@media (max-width: 720px) { .footer-cols { grid-template-columns: 1fr; gap: 22px; } }
+.footer-cols h4 { color: var(--ink); font-size: 0.95rem; margin-bottom: 12px; }
+.footer-cols a { display: block; margin-bottom: 8px; color: var(--muted); font-size: 0.9rem; }
+.footer-bottom { border-top: 1px solid var(--border); padding-top: 18px; font-size: 0.85rem; }
+
+.ps-img { overflow: hidden; }
+.card { border-radius: 18px; }
+
+/* Klinik kartı banner + doktor portresi */
+.clinic-banner {
+  height: 96px;
+  position: relative;
+  background: linear-gradient(120deg, var(--emerald), var(--blue));
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-inline-end: 20px;
+  overflow: visible;
+}
+.clinic-banner svg {
+  stroke: #ffffff;
+  opacity: 0.55;
+  transform: scale(2);
+}
+.clinic-doc {
+  position: absolute;
+  bottom: -26px;
+  inset-inline-start: 22px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  object-fit: cover;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.18);
+  background: var(--border);
+}
