@@ -4,10 +4,20 @@ import Logo from "@/components/Logo";
 import LeadFunnel from "@/components/LeadFunnel";
 import CostCalculator from "@/components/CostCalculator";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import FaqAccordion from "@/components/FaqAccordion";
 import { useLang } from "@/components/LangProvider";
 
+const TX = [
+  { slug: "sac_ekimi", icon: "🌱", labels: { tr: "Saç Ekimi", en: "Hair Transplant", de: "Haartransplantation", fr: "Greffe de cheveux", ar: "زراعة الشعر" } },
+  { slug: "dis", icon: "🦷", labels: { tr: "Diş & Gülüş", en: "Dental & Smile", de: "Zähne & Lächeln", fr: "Dentaire & Sourire", ar: "الأسنان والابتسامة" } },
+  { slug: "estetik", icon: "✨", labels: { tr: "Estetik Cerrahi", en: "Aesthetic Surgery", de: "Ästhetische Chirurgie", fr: "Chirurgie esthétique", ar: "جراحة تجميلية" } },
+  { slug: "obezite", icon: "⚖️", labels: { tr: "Obezite", en: "Bariatric", de: "Adipositas", fr: "Bariatrique", ar: "السمنة" } },
+  { slug: "tup_bebek", icon: "👶", labels: { tr: "Tüp Bebek / IVF", en: "IVF", de: "IVF", fr: "FIV", ar: "أطفال الأنابيب" } },
+  { slug: "goz", icon: "👁️", labels: { tr: "Göz / LASIK", en: "Eye / LASIK", de: "Augen / LASIK", fr: "Yeux / LASIK", ar: "العيون / الليزك" } },
+] as const;
+
 export default function HomeContent() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   const year = new Date().getFullYear();
 
   return (
@@ -16,6 +26,7 @@ export default function HomeContent() {
         <div className="inner">
           <Logo size={32} />
           <nav className="nav-links">
+            <a href="#tedaviler">{t("tx.title")}</a>
             <a href="#hesapla">{t("nav.cost")}</a>
             <a href="#nasil">{t("nav.how")}</a>
             <a href="#neden">{t("nav.why")}</a>
@@ -61,6 +72,23 @@ export default function HomeContent() {
           </div>
         </div>
       </div>
+
+      <section className="section" id="tedaviler">
+        <div className="container">
+          <h2>{t("tx.title")}</h2>
+          <p className="muted">{t("tx.sub")}</p>
+          <div className="grid-3">
+            {TX.map((x) => (
+              <a className="tx-card" key={x.slug} href="#basvuru">
+                <div className="tx-icon">{x.icon}</div>
+                <h3>{x.labels[lang]}</h3>
+                <p>{t(`tx.${x.slug}.d`)}</p>
+                <div className="go">{t("funnel.submit")} →</div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <section className="section soft" id="neden">
         <div className="container">
@@ -111,6 +139,41 @@ export default function HomeContent() {
             <a className="btn-ghost" href="/portal/login">
               {t("clinics.cta")}
             </a>
+          </div>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container">
+          <h2>{t("rev.title")}</h2>
+          <p className="muted">{t("rev.sub")}</p>
+          <div className="grid-3">
+            {[1, 2, 3].map((i) => (
+              <div className="review" key={i}>
+                <div className="stars">★★★★★</div>
+                <p>“{t(`rev.${i}q`)}”</p>
+                <div className="who">{t(`rev.${i}n`)}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section soft">
+        <div className="container">
+          <h2 style={{ textAlign: "center" }}>{t("faq.title")}</h2>
+          <div style={{ marginTop: 28 }}>
+            <FaqAccordion />
+          </div>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container">
+          <div className="cta-band">
+            <h2>{t("cta.title")}</h2>
+            <p>{t("cta.sub")}</p>
+            <a className="btn" href="#basvuru">{t("cta.btn")}</a>
           </div>
         </div>
       </section>

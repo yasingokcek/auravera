@@ -469,6 +469,98 @@ a {
   margin: 8px 0;
 }
 
+/* ---------- Treatment showcase ---------- */
+.tx-card {
+  position: relative;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 24px;
+  overflow: hidden;
+  transition: 0.18s;
+}
+.tx-card:hover {
+  box-shadow: 0 14px 36px rgba(15, 23, 42, 0.08);
+  transform: translateY(-3px);
+  border-color: var(--emerald);
+}
+.tx-card .tx-icon {
+  font-size: 2rem;
+  width: 58px;
+  height: 58px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg, var(--emerald-soft), var(--blue-soft));
+  margin-bottom: 14px;
+}
+.tx-card h3 {
+  font-size: 1.15rem;
+  margin-bottom: 6px;
+}
+.tx-card p {
+  color: var(--muted);
+  font-size: 0.94rem;
+}
+.tx-card .go {
+  margin-top: 14px;
+  font-weight: 600;
+  color: var(--emerald-dark);
+  font-size: 0.9rem;
+}
+
+/* ---------- Testimonials ---------- */
+.review {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 26px;
+}
+.review .stars {
+  color: #f5b301;
+  margin-bottom: 10px;
+  letter-spacing: 2px;
+}
+.review p {
+  font-size: 1rem;
+  color: var(--ink);
+  line-height: 1.6;
+}
+.review .who {
+  margin-top: 14px;
+  font-weight: 600;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* ---------- CTA band ---------- */
+.cta-band {
+  background: linear-gradient(120deg, var(--emerald) 0%, var(--blue) 100%);
+  border-radius: 24px;
+  padding: 48px 40px;
+  text-align: center;
+  color: #fff;
+  margin: 10px 0 70px;
+}
+.cta-band h2 {
+  color: #fff;
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+.cta-band p {
+  color: rgba(255, 255, 255, 0.9);
+  max-width: 540px;
+  margin: 0 auto 22px;
+}
+.cta-band .btn {
+  display: inline-block;
+  width: auto;
+  padding: 14px 34px;
+  background: #fff;
+  color: var(--emerald-dark);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
 /* ---------- Footer ---------- */
 .site-footer {
   background: var(--bg-soft);
