@@ -11,6 +11,12 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import SimulationTool from "@/components/SimulationTool";
 import BmiCalculator from "@/components/BmiCalculator";
 import { useLang } from "@/components/LangProvider";
+import { IMG, avatar } from "@/lib/images";
+
+const bg = (url: string) => ({
+  backgroundImage: `url(${url}), linear-gradient(135deg, var(--emerald-soft), var(--blue-soft))`,
+});
+const REV_AVATARS = [avatar("men", 32), avatar("women", 44), avatar("women", 68)];
 
 const TX = [
   { slug: "sac_ekimi", icon: "🌱", labels: { tr: "Saç Ekimi", en: "Hair Transplant", de: "Haartransplantation", fr: "Greffe de cheveux", ar: "زراعة الشعر" } },
@@ -45,18 +51,33 @@ export default function HomeContent() {
       </header>
 
       <section className="hero">
-        <div className="container">
-          <span className="eyebrow">● {t("hero.eyebrow")}</span>
-          <h1>
-            {t("hero.t1")} <span className="grad">{t("hero.grad")}</span>{" "}
-            {t("hero.t2")}
-          </h1>
-          <p className="lead">{t("hero.lead")}</p>
-          <div className="badges">
-            <span className="badge">{t("hero.b1")}</span>
-            <span className="badge">{t("hero.b2")}</span>
-            <span className="badge">{t("hero.b3")}</span>
-            <span className="badge">{t("hero.b4")}</span>
+        <div className="container hero-grid">
+          <div>
+            <span className="eyebrow">● {t("hero.eyebrow")}</span>
+            <h1>
+              {t("hero.t1")} <span className="grad">{t("hero.grad")}</span>{" "}
+              {t("hero.t2")}
+            </h1>
+            <p className="lead">{t("hero.lead")}</p>
+            <div className="hero-cta">
+              <a className="btn" href="#basvuru">{t("cta.btn")}</a>
+              <a className="btn btn-sec" href="#araclar">{t("calc.title").replace("💰 ", "")}</a>
+            </div>
+            <div className="badges">
+              <span className="badge">{t("hero.b1")}</span>
+              <span className="badge">{t("hero.b2")}</span>
+              <span className="badge">{t("hero.b3")}</span>
+              <span className="badge">{t("hero.b4")}</span>
+            </div>
+          </div>
+          <div className="hero-media" style={bg(IMG.hero)}>
+            <div className="float-card">
+              <div className="fc-rate">4.9</div>
+              <div>
+                <div className="fc-stars">★★★★★</div>
+                <div className="fc-label">{t("rev.sub")}</div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -85,8 +106,11 @@ export default function HomeContent() {
           <div className="grid-3">
             {TX.map((x) => (
               <a className="tx-card" key={x.slug} href="#basvuru">
-                <div className="tx-icon"><TreatmentIcon slug={x.slug} size={30} /></div>
-                <h3>{x.labels[lang]}</h3>
+                <div className="tx-media" style={bg(IMG.tx[x.slug])} />
+                <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6 }}>
+                  <TreatmentIcon slug={x.slug} size={24} />
+                  <h3 style={{ margin: 0 }}>{x.labels[lang]}</h3>
+                </div>
                 <p>{t(`tx.${x.slug}.d`)}</p>
                 <div className="go">{t("funnel.submit")} →</div>
               </a>
@@ -161,16 +185,23 @@ export default function HomeContent() {
 
       <section className="section soft" id="neden-turkiye">
         <div className="container">
-          <h2>{t("whyTr.title")}</h2>
-          <p className="muted">{t("whyTr.sub")}</p>
-          <div className="grid-3">
-            {[1, 2, 3, 4].map((i) => (
-              <div className="feature" key={i}>
-                <div className="icon">{["💸", "👨‍⚕️", "⏱️", "🏖️"][i - 1]}</div>
-                <h3>{t(`whyTr.${i}t`)}</h3>
-                <p>{t(`whyTr.${i}d`)}</p>
+          <div className="photo-split">
+            <div className="ps-img" style={bg(IMG.istanbul)} />
+            <div>
+              <h2>{t("whyTr.title")}</h2>
+              <p className="muted" style={{ marginBottom: 22 }}>{t("whyTr.sub")}</p>
+              <div className="why-list">
+                {[1, 2, 3, 4].map((i) => (
+                  <div className="wl" key={i}>
+                    <div className="wl-ic">{["💸", "👨‍⚕️", "⏱️", "🏖️"][i - 1]}</div>
+                    <div>
+                      <h3>{t(`whyTr.${i}t`)}</h3>
+                      <p>{t(`whyTr.${i}d`)}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </section>
@@ -184,7 +215,11 @@ export default function HomeContent() {
               <div className="review" key={i}>
                 <div className="stars">★★★★★</div>
                 <p>“{t(`rev.${i}q`)}”</p>
-                <div className="who">{t(`rev.${i}n`)}</div>
+                <div className="who-row">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img className="review-avatar" src={REV_AVATARS[i - 1]} alt="" loading="lazy" />
+                  <span className="who" style={{ margin: 0 }}>{t(`rev.${i}n`)}</span>
+                </div>
               </div>
             ))}
           </div>
@@ -202,7 +237,14 @@ export default function HomeContent() {
 
       <section className="section">
         <div className="container">
-          <div className="cta-band">
+          <div
+            className="cta-band"
+            style={{
+              backgroundImage: `linear-gradient(120deg, rgba(15,179,154,0.92), rgba(30,107,255,0.92)), url(${IMG.cta})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          >
             <h2>{t("cta.title")}</h2>
             <p>{t("cta.sub")}</p>
             <a className="btn" href="#basvuru">{t("cta.btn")}</a>

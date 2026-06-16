@@ -5,6 +5,7 @@ import LanguageSwitcher from "@/components/LanguageSwitcher";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import TreatmentIcon from "@/components/TreatmentIcon";
 import { useLang } from "@/components/LangProvider";
+import { IMG } from "@/lib/images";
 import type { Lang } from "@/lib/i18n";
 
 const SPEC: Record<string, Record<Lang, string>> = {
@@ -57,8 +58,14 @@ export default function ClinicsContent() {
       <section className="section" style={{ paddingTop: 28 }}>
         <div className="container">
           <div className="grid-3">
-            {CLINICS.map((c) => (
+            {CLINICS.map((c, i) => (
               <div className="card" key={c.name} style={{ padding: 24 }}>
+                <div
+                  className="clinic-media"
+                  style={{
+                    backgroundImage: `url(${IMG.clinic[i % IMG.clinic.length]}), linear-gradient(135deg, var(--emerald-soft), var(--blue-soft))`,
+                  }}
+                />
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 8 }}>
                   <h3 style={{ fontSize: "1.15rem" }}>{c.name}</h3>
                   <span className="pill" style={{ background: "var(--emerald-soft)", color: "var(--emerald-dark)" }}>
