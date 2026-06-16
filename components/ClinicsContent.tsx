@@ -23,6 +23,12 @@ const CLINICS = [
   { name: "LifeMed Bariatrics", city: "İzmir", rating: 4.7, reviews: 560, specs: ["obezite", "estetik"], accr: "JCI" },
   { name: "Horizon IVF Center", city: "İstanbul", rating: 4.8, reviews: 410, specs: ["tup_bebek"], accr: "ESHRE" },
   { name: "ClearVision Eye", city: "Ankara", rating: 4.9, reviews: 730, specs: ["goz"], accr: "ISO 9001" },
+  { name: "Pearl Smile Dental", city: "İstanbul", rating: 4.9, reviews: 1560, specs: ["dis", "estetik"], accr: "JCI" },
+  { name: "Grafix Hair Institute", city: "Antalya", rating: 4.8, reviews: 1340, specs: ["sac_ekimi"], accr: "ISO 9001" },
+  { name: "Aurora Plastic Surgery", city: "İzmir", rating: 4.9, reviews: 870, specs: ["estetik"], accr: "JCI" },
+  { name: "MedLife Obesity Center", city: "Bursa", rating: 4.7, reviews: 430, specs: ["obezite"], accr: "ISO 9001" },
+  { name: "Genesis Fertility", city: "Ankara", rating: 4.8, reviews: 360, specs: ["tup_bebek", "estetik"], accr: "ESHRE" },
+  { name: "VisionPro LASIK", city: "İstanbul", rating: 4.9, reviews: 990, specs: ["goz"], accr: "JCI" },
 ];
 
 export default function ClinicsContent() {

@@ -8,6 +8,8 @@ import FaqAccordion from "@/components/FaqAccordion";
 import Counter from "@/components/Counter";
 import TreatmentIcon from "@/components/TreatmentIcon";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import SimulationTool from "@/components/SimulationTool";
+import BmiCalculator from "@/components/BmiCalculator";
 import { useLang } from "@/components/LangProvider";
 
 const TX = [
@@ -93,7 +95,18 @@ export default function HomeContent() {
         </div>
       </section>
 
-      <section className="section soft" id="neden">
+      <section className="section soft" id="araclar">
+        <div className="container">
+          <h2>{t("tools.title")}</h2>
+          <p className="muted">{t("tools.sub")}</p>
+          <div className="split" style={{ marginTop: 8, paddingBottom: 0 }}>
+            <SimulationTool />
+            <BmiCalculator />
+          </div>
+        </div>
+      </section>
+
+      <section className="section" id="neden">
         <div className="container">
           <h2>{t("why.title")}</h2>
           <p className="muted">{t("why.sub")}</p>
