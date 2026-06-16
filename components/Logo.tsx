@@ -11,9 +11,9 @@ export default function Logo({
   withWordmark?: boolean;
   light?: boolean;
 }) {
-  const teal = "#0E6E6E";
-  const gold = "#C8A45C";
-  const wordColor = light ? "#FBF8F2" : "#0A4A4A";
+  const teal = "#0FB39A";
+  const gold = "#1E6BFF";
+  const wordColor = light ? "#FFFFFF" : "#0F172A";
 
   return (
     <span style={{ display: "inline-flex", alignItems: "center", gap: 10 }}>
