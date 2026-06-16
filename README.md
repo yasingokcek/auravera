@@ -1,26 +1,42 @@
-# AuraVera — Sağlık Turizmi Lead Toplama Sistemi
+# AuraVera — B2B Sağlık Turizmi Hasta-Kazanım Platformu
 
-Saç ekimi, diş, estetik, obezite vb. tedaviler için uluslararası hasta
-başvurularını (lead) toplayan landing page + admin panosu.
+> **True care. Radiant results.**
+
+AuraVera, uluslararası hastaları (saç ekimi, diş, estetik, obezite, IVF, göz)
+**doğrulayıp nitelendirir** ve bu lead'leri klinik & estetik merkezlerine
+(B2B müşteriler) eşleştirip satar. Bir lead pazar yeri + CRM.
 
 ## Mimari
 
 - **Frontend / API:** Next.js 14 (App Router, TypeScript)
-- **Veritabanı:** Supabase (Postgres) — DeepVera projesi içinde **izole `auravera` şeması**
-- Public form, `auravera` şemasını dışarı açmadan, `public` şemasındaki
-  güvenli `SECURITY DEFINER` RPC fonksiyonu üzerinden yazar.
+- **Auth (klinik portalı):** Supabase Auth + `@supabase/ssr`
+- **Veritabanı:** Supabase Postgres — DeepVera projesi içinde **izole `auravera` şeması**
+- `auravera` şeması REST API'ye açık değildir; tüm erişim `public` şemasındaki
+  güvenli `SECURITY DEFINER` RPC köprü fonksiyonları üzerinden yapılır.
 
-### Veritabanı nesneleri (`auravera` şeması)
+### Üç yüz
+| Yüz | Yol | Erişim |
+|-----|-----|--------|
+| **Hasta hunisi** | `/` | Herkese açık (anon) — çok adımlı quiz + KVKK rıza |
+| **Operasyon paneli** | `/admin` | Parola korumalı (service_role) — lead skorları, atama, klinik & kredi yönetimi |
+| **Klinik portalı** | `/portal` | Supabase Auth — ping/post maskeli lead'ler, kredili satın alma, pipeline |
 
-| Nesne | Açıklama |
-|-------|----------|
-| `auravera.leads` | Lead kayıtları (RLS açık; anon yalnızca INSERT) |
-| `auravera.lead_status` | Durum enum'u: new, contacted, qualified, consultation, converted, lost |
-| `public.auravera_submit_lead(jsonb)` | Anon-çağrılabilir; form gönderimi |
-| `public.auravera_list_leads(...)` | Yalnızca service_role; admin listeleme |
+### Çekirdek özellikler
+- **Otomatik lead skorlama** (trigger): fit (tedavi LTV × bütçe × zaman × ülke) +
+  intent → **A–D derece** ve **sıcak/ılık/soğuk** sınıflandırma.
+- **KVKK/GDPR rıza yönetimi:** ayrı aydınlatma + açık rıza onayları (2026/347),
+  değişmez rıza snapshot'ı, named-recipient, yurt dışı aktarım rızası.
+- **Ping/post gizlilik kapısı:** klinik PII'yi yalnızca lead'i satın aldığında görür.
+- **Kredi cüzdanı:** önden yüklenen bakiye, lead başına ücret, işlem geçmişi.
+- **Denetim günlüğü:** append-only `lead_events`.
 
-> Not: Lead sistemi DeepVera'nın `public` tablolarına **dokunmaz**. İleride
-> ayrı bir Supabase projesine taşımak için: `pg_dump --schema=auravera`.
+### Veritabanı (özet — `auravera` şeması)
+`leads`, `treatments`, `campaigns`, `clinics`, `clinic_preferences`,
+`app_users`, `lead_assignments`, `consents`, `lead_events`, `credit_wallets`,
+`credit_transactions`, `disputes`.
+
+> DeepVera'nın `public` tablolarına dokunulmaz. Ayrı projeye taşımak için:
+> `pg_dump --schema=auravera`.
 
 ## Kurulum
 
@@ -30,21 +46,22 @@ cp .env.local.example .env.local   # değerleri doldurun
 npm run dev
 ```
 
-`.env.local` içine eklenecekler:
+### Ortam değişkenleri
+| Değişken | Açıklama |
+|----------|----------|
+| `NEXT_PUBLIC_SUPABASE_URL` | Proje URL'si (örnek dolu) |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | publishable key (örnek dolu) |
+| `SUPABASE_SERVICE_ROLE_KEY` | **gizli** — admin paneli (sb_secret_…) |
+| `ADMIN_PASSWORD` | `/admin` parolası |
 
-- `NEXT_PUBLIC_SUPABASE_URL` — proje URL'si (doldurulmuş örnek mevcut)
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY` — publishable/anon key (doldurulmuş örnek mevcut)
-- `SUPABASE_SERVICE_ROLE_KEY` — **gizli**, admin panosu için
-  (Supabase Dashboard → Project Settings → API → service_role)
-- `ADMIN_PASSWORD` — `/admin` sayfasını koruyan parola
+## Klinik portalı kullanıcısı oluşturma
+1. Supabase Dashboard → Authentication → **Add user** (e-posta + parola).
+2. `/admin` → Klinikler sekmesi → ilgili klinikte **"Kullanıcı Bağla"** → kullanıcının e-postası.
+3. Kullanıcı `/portal/login` üzerinden giriş yapar.
 
-## Sayfalar
+Seed ile bir **AuraVera Demo Clinic** (500 USD kredi) ve mevcut lead ona teklif
+olarak atanmış durumda gelir.
 
-- `/` — Landing page + başvuru formu (UTM yakalama, honeypot anti-spam, KVKK onayı)
-- `/admin` — Parola korumalı lead panosu
-
-## Veritabanı migration'ları
-
-`supabase/migrations/` altındaki SQL dosyaları uygulanmış durumdadır. Yeni bir
-projeye uygulamak için Supabase SQL Editor'a sırayla yapıştırın veya
-`supabase db push` kullanın.
+## Migration'lar
+`supabase/migrations/` altındaki SQL dosyaları DeepVera projesine uygulanmıştır.
+Yeni projede sıfırdan kurmak için `0001` ve `0002`'yi sırayla çalıştırın.

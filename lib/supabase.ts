@@ -3,46 +3,41 @@ import { createClient } from "@supabase/supabase-js";
 const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-/**
- * Anon (publishable) istemcisi — yalnızca güvenli RPC'leri çağırabilir.
- * Sunucu API route'unda lead göndermek için kullanılır.
- */
+/** Anon istemci — yalnızca güvenli public RPC'leri çağırır (form gönderimi). */
 export function getAnonClient() {
-  if (!url || !anonKey) {
-    throw new Error(
-      "NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_ANON_KEY tanımlı değil"
-    );
-  }
+  if (!url || !anonKey) throw new Error("Supabase URL / ANON KEY eksik");
   return createClient(url, anonKey, { auth: { persistSession: false } });
 }
 
-/**
- * Service role istemcisi — SADECE sunucu tarafı. RLS'i bypass eder.
- * Admin listeleme için kullanılır. Asla tarayıcıya gönderilmez.
- */
+/** Service role istemci — SADECE sunucu tarafı, RLS bypass. Admin işlemleri. */
 export function getServiceClient() {
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !serviceKey) {
-    throw new Error(
-      "NEXT_PUBLIC_SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY tanımlı değil"
-    );
-  }
-  return createClient(url, serviceKey, { auth: { persistSession: false } });
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !key) throw new Error("Supabase URL / SERVICE_ROLE_KEY eksik");
+  return createClient(url, key, { auth: { persistSession: false } });
 }
 
-export type Lead = {
+export type AdminLead = {
   id: string;
   created_at: string;
-  updated_at: string;
   full_name: string;
   email: string | null;
   phone: string | null;
+  whatsapp: string | null;
   country: string | null;
+  city: string | null;
   language: string | null;
   treatment: string | null;
-  message: string | null;
-  source: string | null;
-  utm: Record<string, unknown>;
+  treatment_name: string | null;
+  budget_band: string | null;
+  timeline: string | null;
   status: string;
-  consent: boolean;
+  temperature: "hot" | "warm" | "cold";
+  fit_grade: "A" | "B" | "C" | "D" | null;
+  total_score: number;
+  fit_score: number;
+  intent_score: number;
+  source: string | null;
+  message: string | null;
+  assigned_count: number;
+  reachability_verified: boolean;
 };
