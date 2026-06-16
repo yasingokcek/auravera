@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
+import { useLang } from "@/components/LangProvider";
 
 type Assignment = {
   assignment_id: string;
@@ -36,15 +37,6 @@ const STAGES = [
   "completed",
   "lost",
 ];
-const STAGE_TR: Record<string, string> = {
-  contacted: "İletişim Kuruldu",
-  qualified: "Nitelikli",
-  consultation_booked: "Konsültasyon",
-  quoted: "Teklif Verildi",
-  booked: "Rezerve",
-  completed: "Tamamlandı",
-  lost: "Kayıp",
-};
 
 export default function ClinicAssignments({
   initial,
@@ -53,6 +45,7 @@ export default function ClinicAssignments({
   initial: unknown[];
   balance: number;
 }) {
+  const { t } = useLang();
   const [rows, setRows] = useState<Assignment[]>(initial as Assignment[]);
   const [bal, setBal] = useState(balance);
   const [msg, setMsg] = useState("");
@@ -62,7 +55,7 @@ export default function ClinicAssignments({
   async function claim(a: Assignment) {
     setMsg("");
     if (bal < a.price) {
-      setMsg(`Yetersiz bakiye. Gerekli: $${a.price}, mevcut: $${bal}.`);
+      setMsg(`${t("portal.insufficient")} ($${a.price} / $${bal})`);
       return;
     }
     setBusy(a.assignment_id);
@@ -83,7 +76,7 @@ export default function ClinicAssignments({
       )
     );
     setBal((b) => b - a.price);
-    setMsg("✓ Lead satın alındı, iletişim bilgileri açıldı.");
+    setMsg(t("portal.boughtMsg"));
   }
 
   async function updateStage(a: Assignment, stage: string) {
@@ -101,7 +94,7 @@ export default function ClinicAssignments({
   }
 
   if (rows.length === 0) {
-    return <div className="card">Henüz size atanmış bir lead yok.</div>;
+    return <div className="card">{t("portal.noLeads")}</div>;
   }
 
   return (
@@ -116,9 +109,9 @@ export default function ClinicAssignments({
                   <span className={`grade ${a.fit_grade || "D"}`}>{a.fit_grade || "?"}</span>
                   <strong style={{ fontSize: "1.05rem" }}>{a.treatment || "Tedavi"}</strong>
                   <span className={`pill ${a.temperature}`}>
-                    {a.temperature === "hot" ? "🔥 Sıcak" : a.temperature === "warm" ? "Ilık" : "Soğuk"} · {a.total_score}
+                    {t(`portal.${a.temperature}`)} · {a.total_score}
                   </span>
-                  {a.mode === "exclusive" && <span className="pill warm">Özel</span>}
+                  {a.mode === "exclusive" && <span className="pill warm">{t("portal.exclusive")}</span>}
                 </div>
                 <div style={{ color: "#5b6675", marginTop: 6, fontSize: "0.9rem" }}>
                   {[a.country, a.city, a.language].filter(Boolean).join(" · ") || "—"}
@@ -138,12 +131,12 @@ export default function ClinicAssignments({
                       onClick={() => claim(a)}
                       disabled={busy === a.assignment_id}
                     >
-                      {busy === a.assignment_id ? "..." : "Satın Al & Aç"}
+                      {busy === a.assignment_id ? "..." : t("portal.buy")}
                     </button>
                   </>
                 ) : (
-                  <span className="pill" style={{ background: "rgba(14,110,110,0.1)", color: "var(--teal)" }}>
-                    Satın Alındı
+                  <span className="pill" style={{ background: "var(--emerald-soft)", color: "var(--emerald-dark)" }}>
+                    {t("portal.bought")}
                   </span>
                 )}
               </div>
@@ -160,15 +153,15 @@ export default function ClinicAssignments({
                   <p style={{ color: "#5b6675", marginTop: 6, fontSize: "0.9rem" }}>“{a.message}”</p>
                 )}
                 <div style={{ marginTop: 10, display: "flex", alignItems: "center", gap: 8 }}>
-                  <span style={{ fontSize: "0.85rem", color: "#5b6675" }}>Aşama:</span>
+                  <span style={{ fontSize: "0.85rem", color: "var(--muted)" }}>{t("portal.stageLabel")}</span>
                   <select
                     value={STAGES.includes(a.stage) ? a.stage : ""}
                     onChange={(e) => updateStage(a, e.target.value)}
-                    style={{ padding: 7, borderRadius: 8, border: "1px solid var(--gray)", fontSize: "0.85rem" }}
+                    style={{ padding: 7, borderRadius: 8, border: "1px solid var(--border)", fontSize: "0.85rem" }}
                   >
-                    <option value="">Güncelle…</option>
+                    <option value="">{t("portal.updateStage")}</option>
                     {STAGES.map((s) => (
-                      <option key={s} value={s}>{STAGE_TR[s]}</option>
+                      <option key={s} value={s}>{t(`stage.${s}`)}</option>
                     ))}
                   </select>
                 </div>

@@ -1,5 +1,6 @@
 import Logo from "@/components/Logo";
 import AdminPanel from "@/components/AdminPanel";
+import { LangProvider } from "@/components/LangProvider";
 import { getServiceClient, type AdminLead } from "@/lib/supabase";
 import { isAdminAuthed } from "@/lib/adminAuth";
 
@@ -63,13 +64,6 @@ export default async function AdminPage({
 
   return (
     <main className="container dash">
-      <div className="dash-head">
-        <Logo size={30} />
-        <a className="btn-ghost" href="/">
-          Siteyi Gör
-        </a>
-      </div>
-
       {loadError && (
         <div className="alert error">
           Veri yüklenemedi: {loadError}
@@ -77,12 +71,9 @@ export default async function AdminPage({
           <small>SUPABASE_SERVICE_ROLE_KEY ortam değişkenini kontrol edin.</small>
         </div>
       )}
-
-      <AdminPanel
-        leads={leads}
-        stats={stats}
-        clinics={clinics}
-      />
+      <LangProvider>
+        <AdminPanel leads={leads} stats={stats} clinics={clinics} />
+      </LangProvider>
     </main>
   );
 }

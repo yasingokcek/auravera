@@ -2,23 +2,11 @@
 
 import { useState } from "react";
 import type { AdminLead } from "@/lib/supabase";
+import Logo from "@/components/Logo";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { useLang } from "@/components/LangProvider";
 
 type Clinic = { id: string; name: string; country: string | null; balance: number; leads: number };
-
-const STAGE_TR: Record<string, string> = {
-  new: "Yeni",
-  contacted: "İletişimde",
-  attempting: "Aranıyor",
-  qualified: "Nitelikli",
-  consultation_booked: "Konsültasyon",
-  quoted: "Teklif Verildi",
-  booked: "Rezerve",
-  arrived: "Geldi",
-  completed: "Tamamlandı",
-  follow_up: "Takip",
-  disqualified: "Elendi",
-  lost: "Kayıp",
-};
 
 async function post(action: string, params: Record<string, unknown>) {
   const res = await fetch("/api/admin/action", {
@@ -38,52 +26,62 @@ export default function AdminPanel({
   stats: Record<string, unknown>;
   clinics: Clinic[];
 }) {
+  const { t } = useLang();
   const [tab, setTab] = useState<"leads" | "clinics">("leads");
   const [msg, setMsg] = useState("");
   const num = (k: string) => Number(stats[k] ?? 0);
+  const stage = (s: string) => t(`stage.${s}`);
 
   async function assign(leadId: string, clinicId: string, mode: string) {
     if (!clinicId) return;
-    setMsg("Atanıyor...");
+    setMsg(t("admin.assigning"));
     const r = await post("assign", { lead_id: leadId, clinic_id: clinicId, mode });
-    setMsg(r.ok ? "✓ Lead atandı. Sayfayı yenileyin." : `Hata: ${r.error}`);
+    setMsg(r.ok ? t("admin.assignedMsg") : `${t("admin.error")}: ${r.error}`);
   }
   async function topup(clinicId: string) {
-    const amount = prompt("Yüklenecek kredi (USD):", "100");
+    const amount = prompt(t("admin.topupPrompt"), "100");
     if (!amount) return;
     const r = await post("topup", { clinic_id: clinicId, amount });
-    setMsg(r.ok ? "✓ Kredi yüklendi. Yenileyin." : `Hata: ${r.error}`);
+    setMsg(r.ok ? t("admin.done") : `${t("admin.error")}: ${r.error}`);
   }
   async function createClinic() {
-    const name = prompt("Klinik adı:");
+    const name = prompt(t("admin.clinicNamePrompt"));
     if (!name) return;
     const r = await post("create_clinic", { name });
-    setMsg(r.ok ? "✓ Klinik oluşturuldu. Yenileyin." : `Hata: ${r.error}`);
+    setMsg(r.ok ? t("admin.done") : `${t("admin.error")}: ${r.error}`);
   }
   async function linkUser(clinicId: string) {
-    const email = prompt("Bağlanacak kullanıcının e-postası (önce Supabase Auth'ta oluşturulmalı):");
+    const email = prompt(t("admin.linkUserPrompt"));
     if (!email) return;
     const r = await post("link_user", { email, clinic_id: clinicId, role: "clinic_admin" });
-    setMsg(r.ok ? "✓ Kullanıcı kliniğe bağlandı." : `Hata: ${r.error}`);
+    setMsg(r.ok ? t("admin.done") : `${t("admin.error")}: ${r.error}`);
   }
 
   return (
     <>
-      <div className="stat-row" style={{ marginTop: 0, marginBottom: 24 }}>
-        <div className="stat"><div className="num">{num("total")}</div><div className="label">Toplam Lead</div></div>
-        <div className="stat"><div className="num">{num("new")}</div><div className="label">Yeni</div></div>
-        <div className="stat"><div className="num">{num("hot")}</div><div className="label">🔥 Sıcak</div></div>
-        <div className="stat"><div className="num">{num("grade_a")}</div><div className="label">A Sınıfı</div></div>
+      <div className="dash-head">
+        <Logo size={30} />
+        <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
+          <a className="btn-ghost" href="/">{t("admin.viewSite")}</a>
+          <LanguageSwitcher />
+        </div>
+      </div>
+
+      <div className="stat-row" style={{ marginBottom: 24 }}>
+        <div className="stat"><div className="num">{num("total")}</div><div className="label">{t("admin.total")}</div></div>
+        <div className="stat"><div className="num">{num("new")}</div><div className="label">{t("admin.new")}</div></div>
+        <div className="stat"><div className="num">{num("hot")}</div><div className="label">{t("admin.hot")}</div></div>
+        <div className="stat"><div className="num">{num("grade_a")}</div><div className="label">{t("admin.gradeA")}</div></div>
       </div>
 
       {msg && <div className="alert success">{msg}</div>}
 
       <div style={{ display: "flex", gap: 10, marginBottom: 16 }}>
         <button className={`btn ${tab === "leads" ? "" : "btn-sec"}`} style={{ width: "auto", padding: "8px 18px" }} onClick={() => setTab("leads")}>
-          Lead'ler ({leads.length})
+          {t("admin.leadsTab")} ({leads.length})
         </button>
         <button className={`btn ${tab === "clinics" ? "" : "btn-sec"}`} style={{ width: "auto", padding: "8px 18px" }} onClick={() => setTab("clinics")}>
-          Klinikler ({clinics.length})
+          {t("admin.clinicsTab")} ({clinics.length})
         </button>
       </div>
 
@@ -92,17 +90,16 @@ export default function AdminPanel({
           <table className="tbl">
             <thead>
               <tr>
-                <th>Tarih</th><th>Skor</th><th>Ad</th><th>İletişim</th>
-                <th>Tedavi</th><th>Bütçe</th><th>Ülke</th><th>Durum</th><th>Ata</th>
+                <th>{t("admin.date")}</th><th>{t("admin.score")}</th><th>{t("admin.name")}</th>
+                <th>{t("admin.contact")}</th><th>{t("admin.treatment")}</th><th>{t("admin.budget")}</th>
+                <th>{t("admin.country")}</th><th>{t("admin.status")}</th><th>{t("admin.assign")}</th>
               </tr>
             </thead>
             <tbody>
-              {leads.length === 0 && (
-                <tr><td colSpan={9}>Henüz lead yok.</td></tr>
-              )}
+              {leads.length === 0 && <tr><td colSpan={9}>{t("admin.noLeads")}</td></tr>}
               {leads.map((l) => (
                 <tr key={l.id}>
-                  <td style={{ whiteSpace: "nowrap" }}>{new Date(l.created_at).toLocaleDateString("tr-TR")}</td>
+                  <td style={{ whiteSpace: "nowrap" }}>{new Date(l.created_at).toLocaleDateString()}</td>
                   <td>
                     <span className={`grade ${l.fit_grade || "D"}`}>{l.fit_grade || "?"}</span>{" "}
                     <span className={`pill ${l.temperature}`}>{l.total_score}</span>
@@ -115,17 +112,12 @@ export default function AdminPanel({
                   <td>{l.treatment_name || l.treatment || "—"}</td>
                   <td>{l.budget_band || "—"}</td>
                   <td>{l.country || "—"}</td>
-                  <td>{STAGE_TR[l.status] || l.status}{l.assigned_count > 0 ? ` · ${l.assigned_count}🏥` : ""}</td>
+                  <td>{stage(l.status)}{l.assigned_count > 0 ? ` · ${l.assigned_count}🏥` : ""}</td>
                   <td>
-                    <select
-                      defaultValue=""
-                      onChange={(e) => assign(l.id, e.target.value, "shared")}
-                      style={{ padding: 6, borderRadius: 8, border: "1px solid var(--gray)", fontSize: "0.82rem" }}
-                    >
-                      <option value="">Kliniğe ata…</option>
-                      {clinics.map((c) => (
-                        <option key={c.id} value={c.id}>{c.name}</option>
-                      ))}
+                    <select defaultValue="" onChange={(e) => assign(l.id, e.target.value, "shared")}
+                      style={{ padding: 6, borderRadius: 8, border: "1px solid var(--border)", fontSize: "0.82rem" }}>
+                      <option value="">{t("admin.assignPh")}</option>
+                      {clinics.map((c) => <option key={c.id} value={c.id}>{c.name}</option>)}
                     </select>
                   </td>
                 </tr>
@@ -138,12 +130,12 @@ export default function AdminPanel({
       {tab === "clinics" && (
         <div>
           <button className="btn" style={{ width: "auto", padding: "8px 18px", marginBottom: 14 }} onClick={createClinic}>
-            + Yeni Klinik
+            {t("admin.newClinic")}
           </button>
           <div className="card" style={{ padding: 0, overflowX: "auto" }}>
             <table className="tbl">
               <thead>
-                <tr><th>Klinik</th><th>Ülke</th><th>Bakiye</th><th>Lead</th><th>İşlem</th></tr>
+                <tr><th>{t("admin.clinic")}</th><th>{t("admin.country")}</th><th>{t("admin.balance")}</th><th>{t("admin.leads")}</th><th>{t("admin.action")}</th></tr>
               </thead>
               <tbody>
                 {clinics.map((c) => (
@@ -154,10 +146,10 @@ export default function AdminPanel({
                     <td>{c.leads}</td>
                     <td style={{ display: "flex", gap: 6 }}>
                       <button className="btn-sec" style={{ padding: "5px 12px", borderRadius: 8, fontSize: "0.8rem", cursor: "pointer" }} onClick={() => topup(c.id)}>
-                        Kredi Yükle
+                        {t("admin.topup")}
                       </button>
                       <button className="btn-sec" style={{ padding: "5px 12px", borderRadius: 8, fontSize: "0.8rem", cursor: "pointer" }} onClick={() => linkUser(c.id)}>
-                        Kullanıcı Bağla
+                        {t("admin.linkUser")}
                       </button>
                     </td>
                   </tr>
